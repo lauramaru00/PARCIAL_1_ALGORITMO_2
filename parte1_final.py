@@ -29,41 +29,38 @@ G = nx.DiGraph()
 G.add_edges_from(A)
 
 
-# # 3. Funciones para los recorridos fundamentales
-# def preorden(nodo, tree, resultado=None):
-#   if resultado is None:
-#     resultado = []
-#   resultado.append(nodo)
-#   for hijo in tree.get(nodo, []):
-#     preorden(hijo, tree, resultado)
-#   return resultado
+# 3. Definición de funciones de recorrido del árbol
+def preorden(nodo, tree, resultado=None):
+  if resultado is None:
+    resultado = []
+  resultado.append(nodo)
+  for hijo in tree.get(nodo, []):
+    preorden(hijo, tree, resultado)
+  return resultado
 
 
-# def inorden(nodo, tree, resultado=None):
-#   if resultado is None:
-#     resultado = []
-#   hijos = tree.get(nodo, [])
-#   if len(hijos) > 0:
-#     inorden(hijos[0], tree, resultado)  # Hijo izquierdo
-#   resultado.append(nodo)  # Raíz
-#   for hijo in hijos[1:]:
-#     inorden(hijo, tree, resultado)  # Hijo derecho (si existe)
-#   return resultado
+def inorden(nodo, tree, resultado=None):
+  if resultado is None:
+    resultado = []
+  hijos = tree.get(nodo, [])
+  if len(hijos) > 0:
+    inorden(hijos[0], tree, resultado)  # Hijo izquierdo
+  resultado.append(nodo)  # Raíz
+  for hijo in hijos[1:]:
+    inorden(hijo, tree, resultado)  # Hijo derecho (si existe)
+  return resultado
 
 
-# def postorden(nodo, tree, resultado=None):
-#   if resultado is None:
-#     resultado = []
-#   for hijo in tree.get(nodo, []):
-#     postorden(hijo, tree, resultado)
-#   resultado.append(nodo)
-#   return resultado
+def postorden(nodo, tree, resultado=None):
+  if resultado is None:
+    resultado = []
+  for hijo in tree.get(nodo, []):
+    postorden(hijo, tree, resultado)
+  resultado.append(nodo)
+  return resultado
 
-preorden = [1,2,4,8,5,9,10,3,6,11,7,12]
-inorden = [8,4,2,9,5,10,1,6,11,3,12,7]
-postorden = [8,4,9,10,5,2,11,6,12,7,3,1]
 
-# Imprimir información estructural y resultados en consola
+# imprimir propiedades del árbol y recorridos
 print("--- PROPIEDADES DEL ÁRBOL ---")
 print("Vértices:", V)
 print("Aristas:", A)
@@ -72,9 +69,9 @@ print("Nodos hoja:", nodo_hoja)
 print("Nodos internos:", nodos_internos)
 
 print("\n--- RECORRIDOS ---")
-print("Preorden:  ", preorden)
-print("Inorden:   ", inorden)
-print("Postorden: ", postorden)
+print("Preorden:  ", preorden(nodo_raiz, arbol))
+print("Inorden:   ", inorden(nodo_raiz, arbol))
+print("Postorden: ", postorden(nodo_raiz, arbol))
 
 # 4. Visualización gráfica con NetworkX y Matplotlib
 plt.figure(figsize=(9, 6))
